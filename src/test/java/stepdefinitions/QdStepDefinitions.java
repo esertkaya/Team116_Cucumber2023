@@ -1,0 +1,58 @@
+package stepdefinitions;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.devtools.v85.runtime.Runtime;
+import pages.QdPage;
+import utilities.ConfigReader;
+import utilities.Driver;
+
+public class QdStepDefinitions {
+    QdPage qdPage=new QdPage();
+
+    @Then("anasayfada login linkine click yapar")
+    public void anasayfada_login_linkine_click_yapar() {
+      qdPage.ilkLoginLinki.click();
+
+    }
+    @Then("email kutusuna {string} yazar")
+    public void email_kutusuna_yazar(String istenenUsername) {
+        qdPage.emailKutusu.sendKeys(ConfigReader.getProperty(istenenUsername));
+
+
+    }
+    @Then("password kutusuna {string} yazar")
+    public void password_kutusuna_yazar(String istenenPassword) {
+        qdPage.passwordKutusu.sendKeys(ConfigReader.getProperty(istenenPassword));
+    }
+    @When("login butonuna basar")
+    public void login_butonuna_basar() {
+        qdPage.loginButonu.click();
+    }
+    @Then("basarili olarak giris yapildigini test eder")
+    public void basarili_olarak_giris_yapildigini_test_eder() {
+        Assert.assertTrue(qdPage.basariliGirisKontrolElementi.isDisplayed());
+    }
+
+    @Then("basarili olarak giris yapilamadigini test eder")
+    public void basariliOlarakGirisYapilamadiginiTestEder() {
+        Assert.assertTrue(qdPage.emailKutusu.isDisplayed());
+    }
+
+    @And("email kutusuna listeden {string} yazar")
+    public void emailKutusunaListedenYazar(String listedekiUsername) {
+        qdPage.emailKutusu.sendKeys(listedekiUsername);
+    }
+
+    @And("password kutusuna listeden {string} yazar")
+    public void passwordKutusunaListedenYazar(String listedekiPassword) {
+        qdPage.passwordKutusu.sendKeys(listedekiPassword);
+    }
+
+
+
+}
